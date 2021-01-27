@@ -18,7 +18,7 @@ public:
         rawNums = nums;
         this->nums = nums;
         numSize = nums.size();
-        cout << numSize;
+        //cout << numSize;
         srand (time(NULL)); 
     }
     
