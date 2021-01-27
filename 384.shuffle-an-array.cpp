@@ -1,7 +1,6 @@
 #include "include.hpp"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
-#include <algorithm>
 
 /*
  * @lc app=leetcode id=384 lang=cpp
@@ -32,7 +31,12 @@ public:
     
     /** Returns a random shuffling of the array. */
     vector<int> shuffle() {
-        std::random_shuffle ( nums.begin(), nums.end());
+        /* initialize random seed: */
+        for (int i =0; i < numSize; i++)
+        {
+            int i1 = rand() % numSize;
+            swap(nums[i1],nums[i]);
+        }
         return nums;
     }
 };
