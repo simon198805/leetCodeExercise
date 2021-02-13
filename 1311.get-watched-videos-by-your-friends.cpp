@@ -8,27 +8,28 @@
 // @lc code=start
 class Solution {
     int mySelf;
-    void FindFriends(vector<vector<int>>& friends, int &me, int &level, set<int> &myLevelNFriends)
+    vector<int> FindFriends(vector<vector<int>>& friends, int &me, int &level)
     {
-
-        vector<int> &myFriends = friends[me];
-        int myFriendsCount = myFriends.size(); 
-        if(level == 1)
-        {
-            for (auto &&i : myFriends)
+        set<int> visitedFriends = {me};
+        vector<int> friendsInThisLv = {me};
+        for (size_t i = 0; i < level; i++)
+        {            
+            vector<int> friendsInNextLv;        
+            for(auto &&thisLvFriend: friendsInThisLv)
             {
-                if(i != mySelf)
-                myLevelNFriends.insert(i);                
+                for (auto &&nextLvFriend : friends[thisLvFriend])
+                {
+                    auto r = visitedFriends.insert(nextLvFriend);
+                    if(r.second)
+                    {
+                        friendsInNextLv.push_back(nextLvFriend);
+                    }
+                }
             }
-            return;
+            friendsInThisLv = friendsInNextLv;
         }
+        return friendsInThisLv;
 
-        int nextLv = level-1;
-        for (auto &&i : myFriends)
-        {
-            if(i != me)
-            FindFriends(friends,i,nextLv,myLevelNFriends);
-        }
     }
     static bool CompareValueThenKey(pair<string,int> &p1, pair<string,int> &p2)
     {
@@ -44,8 +45,7 @@ class Solution {
 public:
     vector<string> watchedVideosByFriends(vector<vector<string>>& watchedVideos, vector<vector<int>>& friends, int id, int level) {
         mySelf = id;
-        set<int> myLevelNFriends;
-        FindFriends(friends, id,level, myLevelNFriends);
+        auto  myLevelNFriends = FindFriends(friends, id,level);
         map<string,int> levelNFriendsVideos;
         cout << "lvNFriends";
         for (auto &&thisFriend : myLevelNFriends)
