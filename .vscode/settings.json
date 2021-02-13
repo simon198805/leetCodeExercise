@@ -3,6 +3,8 @@
         "iostream": "cpp",
         "vector": "cpp",
         "exception": "cpp",
-        "algorithm": "cpp"
-    }
+        "algorithm": "cpp",
+        "initializer_list": "cpp"
+    },
+    "editor.wordWrap": "on"
 }
