@@ -12,19 +12,12 @@ public:
         vector<int> res;
         bool rev = true;
         int baseNum = exp2(int(log2(label)));
-        int rawNum = label;
         res.push_back(label);
-        int showNum;
-        while(rawNum > 1)
+        while(label > 1)
         {
             baseNum/=2;
-            rawNum = rawNum/2;
-            showNum = rawNum;
-            if(rev)
-            {
-              showNum = baseNum * 3 - rawNum - 1;  
-            }
-            res.push_back(showNum);
+            label = label/2;
+            res.push_back(rev?(baseNum * 3 - label - 1) :label);
             rev = !rev;
         }
         reverse(res.begin(),res.end());
